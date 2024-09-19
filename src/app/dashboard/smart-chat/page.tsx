@@ -2,7 +2,7 @@
 const Page = () => {
   return (
     <div>
-      Page
+      Smart Chat
     </div>
   )
 };
