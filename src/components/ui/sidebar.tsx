@@ -4,7 +4,7 @@ import Link, { LinkProps } from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
-
+import { usePathname } from "next/navigation"; // 替代 useRouter
 interface Links {
   label: string;
   href: string;
@@ -89,11 +89,11 @@ export const DesktopSidebar = ({
     <>
       <motion.div
         className={cn(
-          "h-full px-4 py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[300px] flex-shrink-0",
+          "h-full py-4 hidden  md:flex md:flex-col bg-neutral-100 dark:bg-neutral-800 w-[260px] flex-shrink-0",
           className
         )}
         animate={{
-          width: animate ? (open ? "300px" : "60px") : "300px",
+          width: animate ? (open ? "260px" : "60px") : "260px",
         }}
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -165,23 +165,38 @@ export const SidebarLink = ({
   props?: LinkProps;
 }) => {
   const { open, animate } = useSidebar();
+  const pathname = usePathname(); // 使用 usePathname 获取当前路径
+  // 检查当前路径是否与链接匹配
+  const isActive = pathname === link.href;
   return (
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-start gap-2  group/sidebar py-2",
+        "flex items-center justify-start gap-2  group/sidebar py-2 pl-8",
+        isActive ? "bg-[#F0F7FF] text-[#5285F2]" : "text-neutral-700 dark:text-neutral-200", // 高亮选中的项
         className
       )}
       {...props}
     >
-      {link.icon}
+      <span
+        className={cn(
+          "h-5 w-5 flex-shrink-0",
+          isActive ? "bg-[#F0F7FF] text-[#5285F2]" : "text-neutral-700 dark:text-neutral-200"
+        )}
+      >
+        {link.icon}
+      </span>
 
       <motion.span
         animate={{
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className={cn(
+          "text-neutral-700 dark:text-neutral-200 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0",
+          isActive ? "bg-[#F0F7FF] text-[#5285F2]" : "text-neutral-700 dark:text-neutral-200", // 高亮选中的项
+          className
+        )}
       >
         {link.label}
       </motion.span>

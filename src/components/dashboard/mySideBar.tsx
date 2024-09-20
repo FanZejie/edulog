@@ -4,9 +4,9 @@ import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Table2, House } from "lucide-react";
+import { Table2, House,UsersRound,NotepadText,BookmarkMinus,MessageSquare,MessageCircleMore,Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
-
+import Image from "next/image";
 export function MySidebar({
   children,
 }: Readonly<{
@@ -17,49 +17,49 @@ export function MySidebar({
       label: "Home",
       href: "/dashboard",
       icon: (
-        <House className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <House className="h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Course",
       href: "/dashboard/course",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <UsersRound  className="h-5 w-5 flex-shrink-0"/>
       ),
     },
     {
       label: "Mistake Book",
       href: "/dashboard/mistake-book",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <NotepadText  className="h-5 w-5 flex-shrink-0"/>
       ),
     },
     {
       label: "Textbook Guidance",
       href: "/dashboard/textbook",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <BookmarkMinus className=" h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Vocabulary",
       href: "/dashboard/vocabulary",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <MessageSquare className=" h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Smart Chat",
       href: "/dashboard/smart-chat",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <MessageCircleMore className=" h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Setting",
       href: "/dashboard/setting",
       icon: (
-        <Table2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+        <Settings className=" h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
@@ -76,13 +76,12 @@ export function MySidebar({
             <>
               <Logo />
             </>
-            <div className="mt-8 flex flex-col gap-2">
+            <div className="mt-8 flex flex-col gap-4">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
           </div>
-          <div></div>
         </SidebarBody>
       </Sidebar>
       {/* <Dashboard /> */}
@@ -98,12 +97,13 @@ export const Logo = () => {
   return (
     <Link
       href="/"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20">
-      <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" />
+      className="font-normal flex space-x-2 items-center text-sm text-black pl-8 py-1 relative z-20">
+      {/* <div className="h-5 w-6 bg-black dark:bg-white rounded-br-lg rounded-tr-sm rounded-tl-lg rounded-bl-sm flex-shrink-0" /> */}
+      <Image src="/sidebarlogo.png" alt="logo" width={20} height={20} />
       <motion.span
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre">
+        className="font-medium text-[#5285F2] dark:text-white whitespace-pre">
         EduLog
       </motion.span>
     </Link>
