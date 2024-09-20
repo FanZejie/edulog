@@ -11,8 +11,8 @@ export default function Home() {
         <div className="w-[300px] flex flex-col  items-center">
           <div className="text-2xl font-bold py-10">Welcome to XXX</div>
           {/* <Button className="mt-20 w-2/3">Sign Up</Button> */}
-          <Link href="/dashboard" className="w-2/3  mt-20"><Button className="mt-4 w-full">Sign Up</Button></Link>
-          <Link href="/dashboard" className="w-2/3  mt-4"><Button className="mt-4 w-full">Sign In</Button></Link>
+          <Link href="/dashboard/home" className="w-2/3  mt-20"><Button className="mt-4 w-full">Sign Up</Button></Link>
+          <Link href="/dashboard/home" className="w-2/3  mt-4"><Button className="mt-4 w-full">Sign In</Button></Link>
           
         </div>
        
