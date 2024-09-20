@@ -15,7 +15,7 @@ export function MySidebar({
   const links = [
     {
       label: "Home",
-      href: "/dashboard",
+      href: "/dashboard/home",
       icon: (
         <House className="h-5 w-5 flex-shrink-0" />
       ),

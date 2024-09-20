@@ -167,7 +167,7 @@ export const SidebarLink = ({
   const { open, animate } = useSidebar();
   const pathname = usePathname(); // 使用 usePathname 获取当前路径
   // 检查当前路径是否与链接匹配
-  const isActive = pathname === link.href;
+  const isActive = pathname.includes(link.href);
   return (
     <Link
       href={link.href}
