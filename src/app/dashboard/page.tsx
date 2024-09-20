@@ -1,5 +1,6 @@
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 import BackCard from "@/components/dashboard/backCard";
+import TimeRow from "@/components/dashboard/timeRow";
 
 const Page = () => {
   return (
@@ -11,7 +12,9 @@ const Page = () => {
         <div className="w-full h-[220px]">
           <BackCard/>
         </div>
-        <div className="w-full h-[120px] bg-red-300">start recording xxxx</div>
+        <div className="w-full h-[120px] flex flex-col justify-center">
+          <TimeRow/>
+        </div>
         <div className="w-full h-[300px] bg-blue-300 flex flex-row">
           <div className="w-1/2 h-full bg-slate-300">left chart</div>
           <div className="w-1/2 h-full bg-stone-300">right chart</div>
