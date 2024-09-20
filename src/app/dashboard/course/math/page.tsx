@@ -1,5 +1,5 @@
 import Image from "next/image";
-
+import { Checkbox } from "@/components/ui/checkbox";
 const Page = () => {
   return (
     <div className="h-full w-full flex flex-col">
@@ -27,10 +27,37 @@ const Page = () => {
 
       <div className="w-1/2 h-28 mt-4 flex flex-row items-center">
         <div className="text-xl">Course Search</div>
-        <Image className="ml-8" src="/search.png" alt="search" width={60} height={60} />
+        <Image
+          className="ml-8"
+          src="/search.png"
+          alt="search"
+          width={60}
+          height={60}
+        />
         <input className="ml-4 w-1/2 h-12 border-2 border-gray-400 rounded-2xl" />
       </div>
-      <div className="">checkbox</div>
+      <div className="flex flex-col mt-8">
+        <div className="flex flex-row items-center">
+          <Checkbox />
+          <div className="text-xl font-bold ml-4">
+            Unit 1: Add and subtract within 20
+          </div>
+        </div>
+
+        <div className="flex flex-row items-center mt-8">
+          <Checkbox />
+          <div className="text-xl font-bold ml-4">
+            Unit 2: Place value
+          </div>
+        </div>
+
+        <div className="flex flex-row items-center mt-8">
+          <Checkbox />
+          <div className="text-xl font-bold ml-4">
+          Unit 3: Add and subtract within 100
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
