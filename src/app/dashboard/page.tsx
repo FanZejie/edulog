@@ -4,6 +4,7 @@ import CompletionCourses from "@/components/dashboard/completionCourses";
 import Schedule from "@/components/dashboard/schedule";
 import StudyTime from "@/components/dashboard/studyTime";
 import TimeRow from "@/components/dashboard/timeRow";
+import UpcomingCourses from "@/components/dashboard/upcomingCourses";
 
 const Page = () => {
   return (
@@ -27,11 +28,13 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/3 h-full flex flex-col">
+      <div className="w-1/3 h-full flex flex-col ml-16">
         <div className="w-full h-[360px] ">
           <Schedule />
         </div>
-        <div className="w-full h-[360px] bg-slate-100">top</div>
+        <div className="w-full h-[360px] bg-slate-50">
+          <UpcomingCourses />
+        </div>
       </div>
     </div>
   );
