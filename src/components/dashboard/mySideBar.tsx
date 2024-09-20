@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Table2, House,UsersRound,NotepadText,BookmarkMinus,MessageSquare,MessageCircleMore,Settings } from "lucide-react";
+import { House,UsersRound,NotepadText,BookmarkMinus,MessageSquare,MessageCircleMore,Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 export function MySidebar({
