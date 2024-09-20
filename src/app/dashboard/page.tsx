@@ -1,6 +1,7 @@
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 import BackCard from "@/components/dashboard/backCard";
 import CompletionCourses from "@/components/dashboard/completionCourses";
+import StudyTime from "@/components/dashboard/studyTime";
 import TimeRow from "@/components/dashboard/timeRow";
 
 const Page = () => {
@@ -11,16 +12,18 @@ const Page = () => {
           <AvatarWithLabel />
         </div>
         <div className="w-full h-[220px]">
-          <BackCard/>
+          <BackCard />
         </div>
         <div className="w-full h-[120px] flex flex-col justify-center">
-          <TimeRow/>
+          <TimeRow />
         </div>
         <div className="w-full h-[300px] flex flex-row">
           <div className="w-2/5 h-full ">
-            <CompletionCourses/>
+            <CompletionCourses />
           </div>
-          <div className="w-3/5 h-full bg-stone-300">right chart</div>
+          <div className="w-3/5 h-full ">
+            <StudyTime />
+          </div>
         </div>
       </div>
       <div className="w-1/3 h-full bg-stone-400 flex flex-col">
