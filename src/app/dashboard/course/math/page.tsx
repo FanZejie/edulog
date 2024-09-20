@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
+import Link from "next/link";
 const Page = () => {
   return (
     <div className="h-full w-full flex flex-col">
@@ -9,11 +10,10 @@ const Page = () => {
           <div className="mt-1">Math</div>
         </div>
         <div>
-          <div className="flex flex-row items-center gap-2">
+          <Link href={'/dashboard/course/'} className="flex flex-row items-center gap-2">
             <Image src="/back.png" alt="back" width={60} height={60} />
-
             <span className="font-medium text-xl text-gray-600">back</span>
-          </div>
+          </Link>
         </div>
 
         <Image
@@ -39,23 +39,23 @@ const Page = () => {
       <div className="flex flex-col mt-8">
         <div className="flex flex-row items-center">
           <Checkbox />
-          <div className="text-xl font-bold ml-4">
+          <Link href={'/dashboard/course/math/unit1'} className="text-xl font-bold ml-4">
             Unit 1: Add and subtract within 20
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-row items-center mt-8">
           <Checkbox />
-          <div className="text-xl font-bold ml-4">
+          <Link href={'/dashboard/course/math/unit2'} className="text-xl font-bold ml-4">
             Unit 2: Place value
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-row items-center mt-8">
           <Checkbox />
-          <div className="text-xl font-bold ml-4">
+          <Link href={'/dashboard/course/math/unit3'} className="text-xl font-bold ml-4">
           Unit 3: Add and subtract within 100
-          </div>
+          </Link>
         </div>
       </div>
     </div>
