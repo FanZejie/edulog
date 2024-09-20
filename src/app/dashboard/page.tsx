@@ -1,6 +1,7 @@
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 import BackCard from "@/components/dashboard/backCard";
 import CompletionCourses from "@/components/dashboard/completionCourses";
+import Schedule from "@/components/dashboard/schedule";
 import StudyTime from "@/components/dashboard/studyTime";
 import TimeRow from "@/components/dashboard/timeRow";
 
@@ -26,9 +27,11 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="w-1/3 h-full bg-stone-400 flex flex-col">
-        <div className="w-full h-[360px] bg-slate-300">top</div>
-        <div className="w-full h-[360px] bg-blue-300">top</div>
+      <div className="w-1/3 h-full flex flex-col">
+        <div className="w-full h-[360px] ">
+          <Schedule />
+        </div>
+        <div className="w-full h-[360px] bg-slate-100">top</div>
       </div>
     </div>
   );
