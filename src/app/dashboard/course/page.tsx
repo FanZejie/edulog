@@ -40,7 +40,7 @@ const Page = () => {
       <div className="w-1/2  flex flex-col pt-10 ">
         <div className="flex flex-col justify-center ml-12">
           <div className="font-extrabold text-4xl">Hello Jane</div>
-          <div className="font-extrabold text-4xl mt-2 mb-14">Let's Start</div>
+          <div className="font-extrabold text-4xl mt-2 mb-14">Let&apos;s Start</div>
         </div>
         <Image src="/courseHuman.png" alt="girl" width={306} height={329}/>
       </div>
