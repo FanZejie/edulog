@@ -32,9 +32,9 @@ const Page = () => {
 
         <div className="flex flex-row ml-8 mt-10">
           <Image src="/writing.png" width={50} height={50} alt="writing" />
-          <div className="w-2/3  text-2xl font-bold flex items-center justify-center ml-8 py-2  bg-[#3C176E] text-white rounded-lg ">
+          <Link href={"/dashboard/course/writing"} className="w-2/3  text-2xl font-bold flex items-center justify-center ml-8 py-2  bg-[#3C176E] text-white rounded-lg ">
             Writing
-          </div>
+          </Link>
         </div>
       </div>
       <div className="w-1/2  flex flex-col pt-10 ">
