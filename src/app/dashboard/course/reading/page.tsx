@@ -44,7 +44,7 @@ const Page = () => {
       <div className="w-1/2 flex flex-row justify-between items-center  mt-8 relative">
         <div className="font-extrabold text-3xl">
           <div>First Grade</div>
-          <div className="mt-1">Math</div>
+          <div className="mt-1">Reading</div>
         </div>
         <div>
           <Link href={'/dashboard/course/'} className="flex flex-row items-center gap-2">
