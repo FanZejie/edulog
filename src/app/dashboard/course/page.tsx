@@ -25,9 +25,9 @@ const Page = () => {
 
         <div className="flex flex-row ml-8 mt-10">
           <Image src="/reading.png" width={50} height={50} alt="reading" />
-          <div className=" w-2/3 text-2xl font-bold flex items-center justify-center ml-8 py-2  bg-[#FF6410] text-white rounded-lg ">
+          <Link href={"/dashboard/course/reading"} className=" w-2/3 text-2xl font-bold flex items-center justify-center ml-8 py-2  bg-[#FF6410] text-white rounded-lg ">
             Reading
-          </div>
+          </Link>
         </div>
 
         <div className="flex flex-row ml-8 mt-10">
