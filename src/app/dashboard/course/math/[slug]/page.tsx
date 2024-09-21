@@ -2,6 +2,7 @@
 import CountdownTimer from "@/components/course/countdownTimer";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 type Question = {
   question: string;
@@ -30,10 +31,13 @@ const generateRandomQuestions = (count: number) => {
   return questions;
 };
 const Page = ({ params }: { params: { slug: string } }) => {
+  const router = useRouter();
+
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isSubmit, setIsSubmit] = useState(false);
   const [wrongCount, setWrongCount] = useState(0);
-  const [spendTimeStr, setSpendTimeStr] = useState(''); // 设置倒计时时间为60秒
+  const [spendTimeStr, setSpendTimeStr] = useState(""); // 设置倒计时时间为60秒
+
   useEffect(() => {
     // 在页面加载时生成随机题目
     setQuestions(generateRandomQuestions(4)); // 假设生成4个问题
@@ -68,10 +72,17 @@ const Page = ({ params }: { params: { slug: string } }) => {
   const handleTimeUp = (remainingTime: number) => {
     const spendTime = 300 - remainingTime;
     const minutes = Math.floor(spendTime / 60); // 计算分钟
-const seconds = spendTime % 60; // 计算剩余秒数
-const result = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
-setSpendTimeStr(result)
+    const seconds = spendTime % 60; // 计算剩余秒数
+    const result = `${minutes} minute${
+      minutes !== 1 ? "s" : ""
+    } ${seconds} second${seconds !== 1 ? "s" : ""}`;
+    setSpendTimeStr(result);
     handleSubmit();
+  };
+
+  const handleRefresh = () => {
+    // 完全刷新页面
+    window.location.reload();
   };
 
   const title = decodeURIComponent(params.slug);
@@ -111,7 +122,11 @@ setSpendTimeStr(result)
         {/* 未提交时按钮组 */}
         {!isSubmit && (
           <div className="w-full p-4">
-            <button className="bg-[#EF6767] text-white py-2 px-16 rounded mt-4">
+            <button
+              onClick={() => {
+                router.push("/dashboard/course/math");
+              }}
+              className="bg-[#EF6767] text-white py-2 px-16 rounded mt-4">
               Cancel
             </button>
             <button
@@ -126,18 +141,22 @@ setSpendTimeStr(result)
         {isSubmit && (
           <div className="w-full flex flex-col">
             <div className="w-full ">
-              <button className="bg-[#6188FF] text-white py-2 px-16 rounded mt-4">
+              <button onClick={handleRefresh} className="bg-[#6188FF] text-white py-2 px-16 rounded mt-4">
                 Try Again
               </button>
               <button
-                onClick={handleSubmit}
+                onClick={() => {
+                  router.push("/dashboard/course");
+                }}
                 className="bg-[#69C43B] text-white py-2 px-16 rounded mt-4 ml-8">
                 Back to Course
               </button>
             </div>
             <div className="w-full">
               <button
-                onClick={handleSubmit}
+                onClick={() => {
+                  router.push("/dashboard/mistake-book");
+                }}
                 className="bg-[#FAA010] text-white py-2 w-[464px] flex items-center justify-center rounded mt-4  ">
                 Jump to mistake book
               </button>
@@ -175,7 +194,10 @@ setSpendTimeStr(result)
           <div className="w-full p-4 flex flex-col items-left justify-center">
             <img src="/info.png" alt="info" className="w-20 h-20" />
             <h3 className="text-xl font-bold mt-4">{wrongCount} error</h3>
-            <h3 className="text-xl font-bold mt-4">accuracy {((questions.length - wrongCount) / questions.length) * 100}%</h3>
+            <h3 className="text-xl font-bold mt-4">
+              accuracy{" "}
+              {((questions.length - wrongCount) / questions.length) * 100}%
+            </h3>
             <h3 className="text-xl font-bold mt-4">
               time taken {spendTimeStr}
             </h3>
