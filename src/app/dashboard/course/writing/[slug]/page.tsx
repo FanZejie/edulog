@@ -2,7 +2,7 @@
 import CountdownTimer from "@/components/course/countdownTimer";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea"
+
 
 const text = `Think of a memory that you remember vividly. It should be a memory that comes easily to you.
 Why do you think you remember this so well? Try connecting one or more emotions to this memory.
@@ -26,7 +26,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
       <h1 className="text-4xl font-bold">{title}</h1>
       <p className="w-3/4 text-lg p-4 mt-4">{text}</p>
 
-      <Textarea className="w-3/4 h-[200px]" placeholder="Type your answer here."/>
+      <textarea  className="w-3/4 h-[200px] border p-1" placeholder="Type your answer here."/>
 
       <div className="w-full p-4">
             <button
