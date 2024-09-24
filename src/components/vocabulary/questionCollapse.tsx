@@ -26,8 +26,8 @@ const formattedItems = data.map(
     label: item.date, // 面板的标题为日期
     children: (
       <div className="flex flex-col gap-2">
-        {item.practises.map((practise) => (
-          <Link href={`/dashboard/vocabulary/details?date=${item.date}&practise=${practise}`} className="pl-4">
+        {item.practises.map((practise,idx) => (
+          <Link key={idx} href={`/dashboard/vocabulary/details?date=${item.date}&practise=${practise}`} className="pl-4">
             {practise}
           </Link>
         ))}
