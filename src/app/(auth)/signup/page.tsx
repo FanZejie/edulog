@@ -3,7 +3,6 @@ import { ConfigProvider } from "antd";
 import Image from "next/image";
 import Link from "next/link"; // Import the Link component
 
-type Padding<T> = [T, T, T, T] | T;
 // 也可以设置为四边相等的数组
 const verticalLabelPadding:
   | import("csstype").Property.Padding<string | number>

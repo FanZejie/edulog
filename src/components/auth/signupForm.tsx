@@ -1,9 +1,8 @@
 "use client";
 import { Button, Form, Input, Select,Checkbox } from "antd";
 import type { CheckboxProps } from 'antd';
-import { UserAddOutlined } from '@ant-design/icons';
+import { UserAddOutlined,EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import Image from "next/image";
-
 
 const onChange: CheckboxProps['onChange'] = (e) => {
     console.log(`checked = ${e.target.checked}`);
@@ -34,7 +33,10 @@ const SignupForm = () => {
         <Input placeholder="xxx@xxx.xxx" />
       </Form.Item>
       <Form.Item label="Password:">
-        <Input placeholder="***" />
+      <Input.Password
+        placeholder="input password"
+        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+      />
       </Form.Item>
       
 
