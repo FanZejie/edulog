@@ -3,7 +3,7 @@ import ChatContainer from "../../../components/smartchat/chatcontainer";
 
 const Page = () => {
   return (
-    <div className="mt-5">
+    <div >
      <ChatContainer/>
     </div>
   )

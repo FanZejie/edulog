@@ -16,7 +16,7 @@ export default function TextbookLayout({
         <Image  src="/chat.png" alt="send" width={60} height={60} />
         <h1>Hello,Jane. You can ask me any questions.</h1>
         </div>
-        <div className="w-full h-screen">
+        <div className="w-full">
         {children}
         </div>
       
