@@ -1,8 +1,9 @@
+import ChatContainer from "@/components/smartchat/chatcontainer";
 
 const Page = () => {
   return (
     <div>
-      Smart Chat
+      <ChatContainer/>
     </div>
   )
 };
