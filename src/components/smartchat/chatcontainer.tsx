@@ -1,72 +1,95 @@
-
-'use client';
-import './chatcontainer.css'
-import React, { useState } from 'react';
-
+"use client";
+import Image from "next/image";
+import React, { useState } from "react";
+import { Input, MessageBox } from "react-chat-elements";
+import "react-chat-elements/dist/main.css";
 const ChatContainer = () => {
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<{ role: string; content: string }[]>([]);
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<{ role: string; content: string }[]>(
+    []
+  );
 
   const handleSend = async () => {
     if (!input) return;
 
-    const newMessage = { role: 'user', content: input };
+    const newMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, newMessage]);
 
     try {
-      const response = await fetch('https://api.aiproxy.io/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer sk-5oT1t9spDu7dI2MuIGVsIfsoUafbtGM5gQXXg7zEpQBmcdVD',  // 替换为你的 OpenAI 密钥
-        },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages: [
-            {
-              role: 'system',
-              content: 'You are a teacher,when you get a question, you should give me a detailed answer,and tell me reason and give me some study skills about this quesion',
-            },
-            {
-              role:'user',
-              content: input
-            }
-          ],
-        }),
-      });
-  
+      const response = await fetch(
+        "https://api.aiproxy.io/v1/chat/completions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer sk-5oT1t9spDu7dI2MuIGVsIfsoUafbtGM5gQXXg7zEpQBmcdVD", // 替换为你的 OpenAI 密钥
+          },
+          body: JSON.stringify({
+            model: "gpt-3.5-turbo",
+            messages: [
+              {
+                role: "system",
+                content:
+                  "You are a teacher,when you get a question, you should give me a detailed answer,and tell me reason and give me some study skills about this quesion",
+              },
+              {
+                role: "user",
+                content: input,
+              },
+            ],
+          }),
+        }
+      );
 
       const data = await response.json();
-      const botMessage ={
+      const botMessage = {
         role: data.choices[0].message.role,
-        content: data.choices[0].message.content
-      } 
+        content: data.choices[0].message.content,
+      };
       setMessages((prev) => [...prev, botMessage]);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
 
-    setInput('');
+    setInput("");
   };
 
   return (
-    <div className="chat-container">
-      <div className="chat-box">
-        {messages.map((msg, idx) => (
+    <div className="w-full h-[calc(100vh-250px)] flex flex-col items-center justify-center ">
+      <div className="w-full h-full overflow-y-auto p-2 mb-2">
+        {/* {messages.map((msg, idx) => (
           <div key={idx} className={`message ${msg.role}`}>
             <strong>{msg.role}:</strong> {msg.content}
           </div>
-        ))}
+        ))} */}
+
+        <MessageBox
+          position={"left"}
+          type={"text"}
+          title={"Message Box Title"}
+          text="Here is a text type message box"
+        />
+
+<MessageBox
+          position={"right"}
+          type={"text"}
+          title={"Message Box Title"}
+          text="Here is a text type message box"
+        />
+
       </div>
-      <div className="input-box">
+      <div className="w-full flex flex-row items-center justify-center">
+      <Image onClick={handleSend} src="/fileupload.png" alt="send" width={60} height={60} />
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask something..."
-          className="input"
+          className="flex-grow p-2 border border-gray-300 rounded-md"
         />
-        <button onClick={handleSend} className="send-btn">Send</button>
+
+        <Image onClick={handleSend} src="/send.png" alt="send" width={60} height={60} />
       </div>
     </div>
   );

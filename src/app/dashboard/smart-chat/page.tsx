@@ -1,9 +1,10 @@
-import ChatContainer from "@/components/smartchat/chatcontainer";
+import ChatContainer from "../../../components/smartchat/chatcontainer";
+
 
 const Page = () => {
   return (
-    <div>
-      <ChatContainer/>
+    <div className="mt-5">
+     <ChatContainer/>
     </div>
   )
 };

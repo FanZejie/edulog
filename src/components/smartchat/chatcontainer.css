@@ -11,29 +11,13 @@
     overflow-y: auto;
     padding: 10px;
     margin-bottom: 10px;
-    display: inline-block;
   }
   
   .message {
-    
-  padding: 10px 15px;
-  margin: 5px 0;
-  border-radius: 10px;
-  max-width: 60%; /* 让消息不会过宽 */
-  word-wrap: break-word; /* 当一行太长时，自动换行 */
+    margin-bottom: 10px;
   }
   
-  .message.user {
-    text-align: right;
-  color: white;
-  background-color: #0080FF;
-  align-self: flex-end; /* 右对齐 */
-  }
-  
-  .message.assistant {
-    text-align: left;
-    color: green;
-  }
+
   
   .input-box {
     display: flex;

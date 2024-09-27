@@ -39,3 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 日期组件 ：
 
 npm install react-day-picker
+
+聊天框组件：
+
+npm install react-chat-elements
