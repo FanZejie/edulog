@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Input, MessageBox } from "react-chat-elements";
+import { MessageBox } from "react-chat-elements";
 import "react-chat-elements/dist/main.css";
 const ChatContainer = () => {
   const [input, setInput] = useState("");
@@ -58,29 +58,28 @@ const ChatContainer = () => {
   return (
     <div className="w-full h-[calc(100vh-250px)] flex flex-col items-center justify-center ">
       <div className="w-full h-full overflow-y-auto p-2 mb-2">
-        {/* {messages.map((msg, idx) => (
-          <div key={idx} className={`message ${msg.role}`}>
-            <strong>{msg.role}:</strong> {msg.content}
-          </div>
-        ))} */}
 
-        <MessageBox
-          position={"left"}
-          type={"text"}
-          title={"Message Box Title"}
-          text="Here is a text type message box"
-        />
-
-<MessageBox
-          position={"right"}
-          type={"text"}
-          title={"Message Box Title"}
-          text="Here is a text type message box"
-        />
+        {
+            messages.map((msg, idx) => (
+                <MessageBox
+                    key={idx}
+                    position={msg.role === "user" ? "right" : "left"}
+                    type="text"
+                    title={msg.role === "user" ? "User" : "Bot"}
+                    text={msg.content}
+                />
+            ))
+        }
 
       </div>
       <div className="w-full flex flex-row items-center justify-center">
-      <Image onClick={handleSend} src="/fileupload.png" alt="send" width={60} height={60} />
+        <Image
+          onClick={handleSend}
+          src="/fileupload.png"
+          alt="send"
+          width={60}
+          height={60}
+        />
         <input
           type="text"
           value={input}
@@ -89,7 +88,13 @@ const ChatContainer = () => {
           className="flex-grow p-2 border border-gray-300 rounded-md"
         />
 
-        <Image onClick={handleSend} src="/send.png" alt="send" width={60} height={60} />
+        <Image
+          onClick={handleSend}
+          src="/send.png"
+          alt="send"
+          width={60}
+          height={60}
+        />
       </div>
     </div>
   );
