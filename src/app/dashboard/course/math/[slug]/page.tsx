@@ -30,6 +30,45 @@ const generateRandomQuestions = (count: number) => {
   }
   return questions;
 };
+
+const generateRandomQuestionsWithin100 = (count: number) => {
+  const questions: Question[] = [];
+  for (let i = 0; i < count; i++) {
+    const num1 = Math.floor(Math.random() * 101); // 生成 0 到 100 的随机数
+    const num2 = Math.floor(Math.random() * 101); // 生成 0 到 100 的随机数
+    const isAddition = Math.random() > 0.5;
+    const question = isAddition ? `${num1} + ${num2}` : `${num1} - ${num2}`;
+    const answer = isAddition ? num1 + num2 : num1 - num2;
+    questions.push({
+      question,
+      answer,
+      userAnswer: "",
+      completed: false,
+      correct: null,
+    });
+  }
+  return questions;
+};
+
+const generateDecomposingQuestions = (count: number) => {
+  const questions: Question[] = [];
+  for (let i = 0; i < count; i++) {
+    const num = Math.floor(Math.random() * 20) + 1; // 生成一个 1 到 20 的随机数
+    const part1 = Math.floor(Math.random() * num); // 随机生成一个小于 num 的数
+    const part2 = num - part1;
+    const question = `Decompose ${num} into ${part1} and ?`;
+    questions.push({
+      question,
+      answer: part2,
+      userAnswer: "",
+      completed: false,
+      correct: null,
+    });
+  }
+  return questions;
+};
+
+
 const Page = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
 
@@ -37,10 +76,20 @@ const Page = ({ params }: { params: { slug: string } }) => {
   const [isSubmit, setIsSubmit] = useState(false);
   const [wrongCount, setWrongCount] = useState(0);
   const [spendTimeStr, setSpendTimeStr] = useState(""); // 设置倒计时时间为60秒
-
+  const title = decodeURIComponent(params.slug);
   useEffect(() => {
-    // 在页面加载时生成随机题目
-    setQuestions(generateRandomQuestions(4)); // 假设生成4个问题
+    const slug = decodeURIComponent(params.slug);
+    console.log('slug',slug)
+    if (slug.includes("Unit 1")) {
+      // 生成 20 以内的加减法
+      setQuestions(generateRandomQuestions(4));
+    } else if (slug.includes("Unit 2")) {
+      // 生成 100 以内的加减法
+      setQuestions(generateRandomQuestionsWithin100(4));
+    } else if (slug.includes("Unit 3")) {
+      // 生成 decomposing number 题目
+      setQuestions(generateDecomposingQuestions(4));
+    }
   }, []);
 
   // 更新用户输入
@@ -85,7 +134,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
     window.location.reload();
   };
 
-  const title = decodeURIComponent(params.slug);
+  
   return (
     <div className="flex flex-row gap-4">
       <div className="w-2/3 flex flex-col gap-4 mt-12">
@@ -98,7 +147,7 @@ const Page = ({ params }: { params: { slug: string } }) => {
                 index + 1
               }: `}</h3>
               <div className="flex flex-row mt-4 items-center">
-                <p className="font-semibold w-24 text-xl">{`${q.question} = `}</p>
+                <p className="font-semibold  text-xl">{`${q.question} = `}</p>
                 <input
                   type="text"
                   value={q.userAnswer}
