@@ -13,30 +13,62 @@ const onChange: CheckboxProps["onChange"] = (e) => {
   console.log(`checked = ${e.target.checked}`);
 };
 
+
+
 const SignupForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+
+  const handleSubmit = async (values: any) => {
+    console.log('values',values)
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log("成功提交:", data);
+        form.resetFields();
+        router.push("/dashboard/home");
+      } else {
+        console.error("提交失败");
+      }
+    } catch (error) {
+      console.error("请求出错:", error);
+    }
+  };
+
+
   return (
-    <Form layout={"vertical"} form={form}>
+    <Form layout={"vertical"} form={form} onFinish={handleSubmit}>
       <div className="flex flex-row gap-4">
-        <Form.Item label="Name:">
+        <Form.Item label="Name:" name="userName">
           <Input placeholder="Name" className="" />
         </Form.Item>
-        <Form.Item label="Grade:">
+        <Form.Item label="Grade:" name="grade">
           <Select className=" min-w-[150px]">
-            <Select.Option value="demo">Demo</Select.Option>
+            <Select.Option value="Grade1">Grade1</Select.Option>
+            <Select.Option value="Grade2">Grade2</Select.Option>
+            <Select.Option value="Grade3">Grade3</Select.Option>
           </Select>
         </Form.Item>
       </div>
-      <Form.Item label="Difficulty:">
+      <Form.Item label="Difficulty:" name="level">
         <Select className="w-full">
-          <Select.Option value="demo">Demo</Select.Option>
+          <Select.Option value="1">easy</Select.Option>
+          <Select.Option value="2">medium</Select.Option>
+          <Select.Option value="3">hard</Select.Option>
         </Select>
       </Form.Item>
-      <Form.Item label="Email:">
+      <Form.Item label="Email:" name="email">
         <Input placeholder="xxx@xxx.xxx" />
       </Form.Item>
-      <Form.Item label="Password:">
+      <Form.Item label="Password:" name="password">
         <Input.Password
           placeholder="input password"
           iconRender={(visible) =>
@@ -68,7 +100,7 @@ const SignupForm = () => {
       <Form.Item>
         <Button
           onClick={() => {
-            router.push("/dashboard/home");
+            form.submit(); // 手动触发表单提交
           }}
           className="w-full"
           size="large"
