@@ -1,3 +1,4 @@
+'use client'
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 import BackCard from "@/components/dashboard/backCard";
 import CompletionCourses from "@/components/dashboard/completionCourses";
