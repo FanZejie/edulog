@@ -7,12 +7,37 @@ import { useRouter } from "next/navigation";
 const SignInForm = () => {
   const [form] = Form.useForm();
   const router = useRouter();
+
+  const handleSubmit = async (values: any) => {
+    try {
+      const response = await fetch("/api/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        form.resetFields();
+        // 登录后保存用户信息
+        localStorage.setItem('user', JSON.stringify(data.data));
+        router.push("/dashboard/home");
+      } else {
+        console.error("提交失败");
+      }
+    } catch (error) {
+      console.error("请求出错:", error);
+    }
+  };
+
   return (
-    <Form layout={"vertical"} form={form}>
-      <Form.Item label="Email:">
-        <Input placeholder="xxx@xxx.xxx" />
+    <Form layout={"vertical"} form={form} onFinish={handleSubmit}>
+      <Form.Item label="username:" name="userName">
+        <Input placeholder="input username" />
       </Form.Item>
-      <Form.Item label="Password:">
+      <Form.Item label="Password:" name="password">
         <Input.Password
           placeholder="input password"
           iconRender={(visible) =>
@@ -26,7 +51,7 @@ const SignInForm = () => {
           size="large"
           type="primary"
           onClick={() => {
-            router.push("/dashboard/home");
+            form.submit(); // 手动触发表单提交
           }}>
           Login
         </Button>

@@ -20,7 +20,6 @@ const SignupForm = () => {
   const router = useRouter();
 
   const handleSubmit = async (values: any) => {
-    console.log('values',values)
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
@@ -34,7 +33,7 @@ const SignupForm = () => {
         const data = await response.json();
         console.log("成功提交:", data);
         form.resetFields();
-        router.push("/dashboard/home");
+        router.push("/login");
       } else {
         console.error("提交失败");
       }
@@ -52,9 +51,9 @@ const SignupForm = () => {
         </Form.Item>
         <Form.Item label="Grade:" name="grade">
           <Select className=" min-w-[150px]">
-            <Select.Option value="Grade1">Grade1</Select.Option>
-            <Select.Option value="Grade2">Grade2</Select.Option>
-            <Select.Option value="Grade3">Grade3</Select.Option>
+            <Select.Option value="First Grade">First Grade</Select.Option>
+            <Select.Option value="Second Grade">Second Grade</Select.Option>
+            <Select.Option value="Third Grade">Third Grade</Select.Option>
           </Select>
         </Form.Item>
       </div>
