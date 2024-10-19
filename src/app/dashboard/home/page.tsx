@@ -62,7 +62,7 @@ const Page = () => {
             
           </div>
           <div className="w-3/5 h-full ">
-            <StudyTime />
+            <StudyTime  chartData={homeData?.studyTimeByMonth || []}/>
           </div>
         </div>
       </div>
