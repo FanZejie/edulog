@@ -1,15 +1,8 @@
 'user client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useEffect } from 'react';
+import { User } from "@/lib/type";
 
-interface User {
-  email: string;
-  grade: string;
-  level: string | null;
-  password: string;
-  phone: string | null;
-  userName: string;
-}
 
 
 const AvatarWithLabel = () => {
@@ -29,8 +22,8 @@ const AvatarWithLabel = () => {
         <AvatarFallback>CN</AvatarFallback>
       </Avatar>
       <div className="flex flex-col ml-4 ">
-        <div className="font-bold text-xl">{user ? user.userName: 'John'}</div>
-        <div className="font-light text-gray-500">{user ? user.grade: 'First Grade'}</div>
+        <div className="font-bold text-xl">{ user?.userName}</div>
+        <div className="font-light text-gray-500">{user?.grade}</div>
       </div>
     </div>
   );

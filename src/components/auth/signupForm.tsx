@@ -59,9 +59,9 @@ const SignupForm = () => {
       </div>
       <Form.Item label="Difficulty:" name="level">
         <Select className="w-full">
-          <Select.Option value="1">easy</Select.Option>
-          <Select.Option value="2">medium</Select.Option>
-          <Select.Option value="3">hard</Select.Option>
+          <Select.Option value="easy">easy</Select.Option>
+          <Select.Option value="medium">medium</Select.Option>
+          <Select.Option value="hard">hard</Select.Option>
         </Select>
       </Form.Item>
       <Form.Item label="Email:" name="email">

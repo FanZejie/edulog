@@ -1,3 +1,4 @@
+'user client'
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 
 export default function CourseLayout({
