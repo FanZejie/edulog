@@ -1,3 +1,4 @@
+'use client'
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 import Image from "next/image";
 

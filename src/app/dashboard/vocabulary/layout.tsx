@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import AvatarWithLabel from "@/components/dashboard/avatarWithLabel";
 
 export default function VocabularyLayout({

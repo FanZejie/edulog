@@ -1,4 +1,4 @@
-'user client'
+'use client'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState, useEffect } from 'react';
 import { User } from "@/lib/type";

@@ -6,3 +6,22 @@ export interface User {
     phone: string | null;
     userName: string;
   }
+
+  type Completion = {
+    math: number;
+    reading: number;
+    writing: number;
+  };
+  
+  type Schedule = {
+    courseSchedule: Record<string, any>; // 根据你的数据结构定义更具体的类型
+  };
+  
+  export type HomeData = {
+    studyTime: string | null;
+    recommendCourse: string;
+    completion: Completion;
+    studyTimeByMonth: any[]; // 根据你的数据结构定义更具体的类型
+    schedule: Schedule;
+  };
+  
