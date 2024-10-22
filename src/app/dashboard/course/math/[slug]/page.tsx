@@ -1,8 +1,9 @@
 "use client";
 import CountdownTimer from "@/components/course/countdownTimer";
 import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
+import { cn, getCurrentDate } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { User } from "@/lib/type";
 
 type Question = {
   question: string;
@@ -73,13 +74,25 @@ const Page = ({ params }: { params: { slug: string } }) => {
   const router = useRouter();
 
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [errorQuestions,setErrorQuestions] = useState<String[]>([])
   const [isSubmit, setIsSubmit] = useState(false);
   const [wrongCount, setWrongCount] = useState(0);
   const [spendTimeStr, setSpendTimeStr] = useState(""); // 设置倒计时时间为60秒
   const title = decodeURIComponent(params.slug);
+
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const slug = decodeURIComponent(params.slug);
-    console.log('slug',slug)
+
     if (slug.includes("Unit 1")) {
       // 生成 20 以内的加减法
       setQuestions(generateRandomQuestions(4));
@@ -107,6 +120,8 @@ const Page = ({ params }: { params: { slug: string } }) => {
       const isCorrect = parseInt(question.userAnswer) === question.answer;
       if (!isCorrect) {
         wrong++;
+        let wrongQuestion = question.question +'='+ question.userAnswer
+        setErrorQuestions((prevError)=>[...prevError,wrongQuestion] )
       }
       return {
         ...question,
@@ -115,7 +130,35 @@ const Page = ({ params }: { params: { slug: string } }) => {
     });
     setWrongCount(wrong);
     setQuestions(updatedQuestions);
+    recordErrorQuestions()
   };
+
+  const recordErrorQuestions = async ()=>{
+    const username = user?.userName
+    const unit = title.substring(0,5)
+    const data = getCurrentDate()
+
+    // 发送数据到后端
+    try {
+      const response = await fetch('/api/addToMistakeBook', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ unit,data,username,questions:errorQuestions }),
+      });
+
+      if (!response.ok) {
+        throw new Error('网络错误');
+      }
+
+      // 处理后端响应
+      const result = await response.json();
+      console.log('数据已发送到后端:', result);
+    } catch (error) {
+      console.error('发送失败:', error);
+    }
+  }
 
   // 倒计时结束时自动提交
   const handleTimeUp = (remainingTime: number) => {
