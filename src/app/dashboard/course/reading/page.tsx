@@ -2,17 +2,9 @@
 import { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import { User } from "@/lib/type";
 
 const Page = () => {
-   // 模拟从后端获取的数组
-   const ans = [
-    {
-      title: "Unit 1: Fairy Tales Retold",
-    },
-    {
-      title: "Unit 2: The Moon",
-    },
-  ];
 
   const tests = [
     {
@@ -25,19 +17,51 @@ const Page = () => {
       title: "Unit 3: Rural, Suburban, Urban",
     }
   ]
-  // 创建状态来保存选中的单元
-  const [checkedUnits, setCheckedUnits] = useState<boolean[]>([]);
-   // 在组件加载时，比较 ans 和 tests，并设置复选框状态
-   useEffect(() => {
-    const initialChecked = tests.map((test) => 
-      ans.some((a) => a.title === test.title) // 如果 ans 中有相同的 title，则选中
-    );
-     // 只有当新的选中状态与当前状态不同的时候才更新状态
-     if (JSON.stringify(initialChecked) !== JSON.stringify(checkedUnits)) {
-      setCheckedUnits(initialChecked);
+  // 模拟从后端获取的数组
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
     }
-    setCheckedUnits(initialChecked);
-  }, []);
+  }, []);// 空数组表示只在组件挂载时运行
+  // 使用数组保存复选框的选中状态，初始值为 false 表示都未选中
+  const [checkedTests, setCheckedTests] = useState<boolean[]>(new Array(tests.length).fill(false));
+
+  // 处理复选框变化的函数
+  const handleCheckboxChange = async (index: number) => {
+    const updatedCheckedTests = [...checkedTests];
+    updatedCheckedTests[index] = !updatedCheckedTests[index]; // 切换选中状态
+    setCheckedTests(updatedCheckedTests);
+
+    // 计算选中的复选框数量
+    const selectedCount = updatedCheckedTests.filter((checked) => checked).length;
+    const course = 'reading'
+    const userName = user?.userName
+
+    // 发送数据到后端
+    try {
+      const response = await fetch('/api/setCourseStatus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ completeNum:selectedCount,course,userName }),
+      });
+
+      if (!response.ok) {
+        throw new Error('网络错误');
+      }
+
+      // 处理后端响应
+      const result = await response.json();
+      console.log('数据已发送到后端:', result);
+    } catch (error) {
+      console.error('发送失败:', error);
+    }
+  };
   
   return (
     <div className="h-full w-full flex flex-col">
@@ -78,8 +102,8 @@ const Page = () => {
         <div className="flex flex-row items-center mt-8" key={index}>
           <input
             type="checkbox"
-            checked={checkedUnits[index]} // 根据状态决定是否打钩
-            onChange={() => {}}
+            checked={checkedTests[index]}
+            onChange={() => handleCheckboxChange(index)}  // 传递当前索引
             className="w-6 h-6 p-4"
           />
           <Link 
