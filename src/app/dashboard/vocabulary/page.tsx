@@ -2,7 +2,7 @@
 import QuestionCollapse from "@/components/vocabulary/questionCollapse";
 import Image from "next/image";
 
-const title = `Mistake Book`;
+const title = `Vocabulary`;
 const Page = () => {
   return (
     <div className="flex flex-row gap-4">
