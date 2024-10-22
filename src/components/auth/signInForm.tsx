@@ -20,12 +20,17 @@ const SignInForm = () => {
   
       if (response.ok) {
         const data = await response.json();
-        form.resetFields();
-        // 登录后保存用户信息
-        localStorage.setItem('user', JSON.stringify(data.data));
-        router.push("/dashboard/home");
+        if(data.code == 1){
+          form.resetFields();
+          // 登录后保存用户信息
+          localStorage.setItem('user', JSON.stringify(data.data));
+          router.push("/dashboard/home");
+        }else{
+          alert('用户名密码错误')
+        }
+       
       } else {
-        console.error("提交失败");
+        console.error("提交失败,后端报错");
       }
     } catch (error) {
       console.error("请求出错:", error);
