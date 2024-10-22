@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { User } from "@/lib/type";
 import { getCurrentDate } from "@/lib/utils";
-
+import { message } from 'antd';
 const UnitPage = () => {
   const router = useRouter();
   const { slug } = useParams<{ slug: string | string[] }>(); // 获取动态路由参数
@@ -30,6 +30,13 @@ const UnitPage = () => {
       }
     }
   }, []);
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = () => {
+    messageApi.open({
+      type: 'success',
+      content: 'add success',
+    });
+  };
 
   const handleAdd = async () => {
     const userName = user?.userName
@@ -58,7 +65,8 @@ const UnitPage = () => {
 
       // 处理后端响应
       const result = await response.json();
-      console.log('数据已发送到后端:', result);
+      setCheckedTests([false,false,false])
+      success()
     } catch (error) {
       console.error('发送失败:', error);
     }
@@ -66,6 +74,7 @@ const UnitPage = () => {
   }
   return (
     <div className="flex flex-row gap-4">
+      {contextHolder}
       <div className="w-2/3 flex flex-col gap-4 mt-12">
         <h1 className="text-4xl font-bold">{decodedTitle}</h1>
         <div className="flex flex-row gap-4 mt-8">
