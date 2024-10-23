@@ -46,7 +46,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
     
     const fetchData = async () => {
       // 你的异步操作
-      const response = await fetch(`/api/getMistakeQuestions?unit=unit1&date=2024-10-21`);
+      const response = await fetch(`/api/getMistakeQuestions?unit=${searchParams.unit}&date=${searchParams.date}`);
       if(response.ok){
         const {data} = await response.json();
         console.log('data',data)
@@ -108,7 +108,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
       <div className="w-2/3 flex flex-col gap-4 mt-12">
         <h1 className="text-4xl font-bold">Mistake Book</h1>
         <h2 className="text-2xl font-bold mt-4 pl-2">
-          {searchParams.practise}
+          {searchParams.unit}
         </h2>
 
         <div className="flex flex-col p-4">
