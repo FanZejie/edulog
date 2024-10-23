@@ -5,6 +5,9 @@ interface DetailPageProps {
   params: Record<string, string | undefined>;
   searchParams: Record<string, string | undefined>;
 }
+interface BackendQuestion {
+  question: string;
+}
 
 type Question = {
   question: string;
@@ -14,25 +17,22 @@ type Question = {
   correct: boolean | null; // null 表示未检查，true 表示正确，false 表示错误
 };
 
-const generateRandomQuestions = () => {
-  const questions: Question[] = [
-    {
-      question: "11-8",
-      answer: 3,
-      userAnswer: "2",
-      completed: true,
-      correct: false,
-    },
-    {
-      question: "11-5",
-      answer: 6,
-      userAnswer: "4",
-      completed: true,
-      correct: false,
-    },
-  ];
-
-  questions.push();
+const generateRandomQuestions = (count: number) => {
+  const questions: Question[] = [];
+  for (let i = 0; i < count; i++) {
+    const num1 = Math.floor(Math.random() * 20);
+    const num2 = Math.floor(Math.random() * 20);
+    const isAddition = Math.random() > 0.5;
+    const question = isAddition ? `${num1} + ${num2}` : `${num1} - ${num2}`;
+    const answer = isAddition ? num1 + num2 : num1 - num2;
+    questions.push({
+      question,
+      answer,
+      userAnswer: "",
+      completed: false,
+      correct: null,
+    });
+  }
   return questions;
 };
 
@@ -40,10 +40,37 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
 
   const router = useRouter();
   const [questions, setQuestions] = useState<Question[]>([]);
-
+  const [errorQuestions,setErrorQuestions] = useState<Question[]>([]);
   useEffect(() => {
     // 在页面加载时生成随机题目
-    setQuestions(generateRandomQuestions()); // 假设生成4个问题
+    
+    const fetchData = async () => {
+      // 你的异步操作
+      const response = await fetch(`/api/getMistakeQuestions?unit=unit1&date=2024-10-21`);
+      if(response.ok){
+        const {data} = await response.json();
+        console.log('data',data)
+        const questionsRes : Question[] = data.map((item: BackendQuestion) => {
+          const [expr, userAnswer] = item.question.split('=');
+          
+          // 计算正确的答案
+          const answer = eval(expr); // 注意：eval 存在安全隐患，实际使用中要谨慎
+        
+          return {
+            question: expr.trim(),
+            answer,
+            userAnswer: userAnswer ? userAnswer.trim() : '',
+            completed: true,
+            correct: false, // 初始状态为未检查
+          };
+        });
+        setQuestions(questionsRes)
+        setErrorQuestions(questionsRes)
+      }else{
+        console.error("提交失败");
+      }
+    }
+    fetchData();
   }, []);
 
    // 更新用户输入
@@ -53,6 +80,28 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
     updatedQuestions[index].completed = value !== "";
     setQuestions(updatedQuestions);
   };
+
+  const handleRedo = ()=>{
+    // 创建 errorQuestions 的深拷贝
+  let copy = errorQuestions.map(q => ({
+    ...q, // 扩展原对象
+    correct: null,
+    userAnswer: ''
+  }));
+    setQuestions(copy)
+  }
+
+  const handleSubmit = ()=>{
+    const updatedQuestions = questions.map((question) => {
+      const isCorrect = parseInt(question.userAnswer) === question.answer;
+      return {
+        ...question,
+        correct: isCorrect,
+      };
+    });
+
+    setQuestions(updatedQuestions);
+  }
 
   return (
     <div className="flex flex-row gap-4">
@@ -92,22 +141,25 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
 
         <div className="flex flex-col">
         <button
-                onClick={() => {
-                  router.push("/dashboard/mistake-book");
-                }}
+                onClick={handleRedo}
                 className="bg-[#6188FF] text-white font-bold py-2 w-[464px] flex items-center justify-center rounded mt-4  ">
                 Redo Incorrect Questions
               </button>
               <button
+                onClick={handleSubmit}
+                className="bg-[#4fc347] text-white font-bold py-2 w-[464px] flex items-center justify-center rounded mt-4  ">
+                Submit
+              </button>
+              <button
                 onClick={() => {
-                  router.push("/dashboard/mistake-book");
+                  router.push("/dashboard/smart-chat");
                 }}
                 className="bg-[#1EE76E] text-white font-bold py-2 w-[464px] flex items-center justify-center rounded mt-4  ">
                 Jump to the Smart Chat
               </button>
         <button
                 onClick={() => {
-                  router.push("/dashboard/mistake-book");
+                  setQuestions(generateRandomQuestions(4)); // 假设生成4个问题
                 }}
                 className="bg-[#FAA010] text-white font-bold py-2 w-[464px] flex items-center justify-center rounded mt-4  ">
                 Generate Similar Question Types

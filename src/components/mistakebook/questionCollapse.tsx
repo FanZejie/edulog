@@ -37,7 +37,7 @@ const WrongQuestionCollapse = () => {
                 children: (
                   <div className="flex flex-col gap-2">
                     {item.units.map((unit, idx) => (
-                      <Link key={idx} href={`/dashboard/vocabulary/details?date=${item.date}&unit=${unit}`} className="pl-4">
+                      <Link key={idx} href={`/dashboard/mistake-book/details?date=${item.date}&unit=${unit}`} className="pl-4">
                         {unit}
                       </Link>
                     ))}
