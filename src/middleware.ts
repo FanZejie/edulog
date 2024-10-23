@@ -9,7 +9,7 @@ export function middleware(req: NextRequest) {
   const isLoggedIn = req.cookies.get('user') !== undefined; // 使用 cookies 而不是 localStorage
 
   // 如果用户未登录且访问的不是登录页面，则重定向到登录页面
-  if (!isLoggedIn && pathname !== '/login' && pathname !== '/signup') {
+  if (!isLoggedIn && pathname !== '/login' && pathname !== '/signup' && pathname !== '/dashboard/mistake-book') {
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
