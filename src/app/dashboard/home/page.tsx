@@ -68,7 +68,8 @@ const Page = () => {
       </div>
       <div className="w-1/3 h-full flex flex-col ml-16">
         <div className="w-full h-[360px] ">
-          <Schedule />
+          {homeData ? <Schedule homeData={homeData}/> : <></>}
+          
         </div>
         <div className="w-full h-[360px] bg-slate-50">
           <UpcomingCourses />

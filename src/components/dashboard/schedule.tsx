@@ -1,32 +1,45 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
+import { HomeData } from "@/lib/type";
 
+type ScheduleProps = {
+  homeData: HomeData; // 接收整个 homeData 对象
+};
 
-const Schedule = () => {
-    // 定义需要高亮的日期
-  const mathDates = [
-    new Date(2024, 8, 19), // 2024-09-19
-    new Date(2024, 8, 25), // 2024-09-25
-  ];
+const Schedule = ({homeData}:ScheduleProps) => {
 
-  const readingDates = [
-    new Date(2024, 8, 11), // 2024-09-19
-    new Date(2024, 8, 23), // 2024-09-25
-  ];
-
-  const writingDates = [
-    new Date(2024, 8, 2), // 2024-09-19
-    new Date(2024, 8, 3), // 2024-09-25
-  ];
-
-   // 使用 modifiers 标记高亮日期
-   const modifiers = {
-    math: mathDates,
-    reading:readingDates,
-    writing:writingDates,
-  };
+  // 使用 modifiers 标记高亮日期
+  const [modifiers,setModifiers] = useState({
+  })
+  useEffect(()=>{
+    console.log('homeDatain schedule',homeData)
+    const courseSchedule = homeData.schedule.courseSchedule
+    const mathArr = []
+    const readingArr = []
+    const writingArr = []
+    if(courseSchedule.math && courseSchedule.math.length!=0){
+      for(const item of courseSchedule.math){
+        mathArr.push(new Date(item))
+      }
+    }
+    if(courseSchedule.reading && courseSchedule.reading.length!=0){
+      for(const item of courseSchedule.reading){
+        readingArr.push(new Date(item))
+      }
+    }
+    if(courseSchedule.writing && courseSchedule.writing.length!=0){
+      for(const item of courseSchedule.writing){
+        writingArr.push(new Date(item))
+      }
+    }
+    setModifiers({
+      math:mathArr,
+      reading:readingArr,
+      writing:writingArr
+    })
+  },[])
 
   return (
     <div className="w-full">
