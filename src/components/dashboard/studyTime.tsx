@@ -24,6 +24,14 @@ type StudyTimeType = {
   chartData:Array<{ month: string; hours: number }>
 }
 
+function formatTime(seconds: any): string {
+  const totalSeconds = parseInt(seconds, 10);
+  const minutes = Math.floor(totalSeconds / 60);
+  const remainingSeconds = totalSeconds % 60;
+
+  return `${minutes}min${remainingSeconds}s`;
+}
+
 const StudyTime = ({chartData} : StudyTimeType) => {
   return (
     <div className="flex flex-col px-4 pt-4">
@@ -46,7 +54,7 @@ const StudyTime = ({chartData} : StudyTimeType) => {
               tickMargin={4}
               tickFormatter={(value) => value.slice(0, 5)}
             />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent formatter={(value) => `Time: ${formatTime(value)}`} />} />
             <defs>
               <linearGradient id="fillTime" x1="0" y1="0" x2="0" y2="1">
                 <stop

@@ -12,7 +12,7 @@ const BackCard = ({homeData} : BackCardProps) => {
         <div className="text-white text-4xl font-bold p-8 flex flex-row">Welcome back, Jane
             <Image src="/helloHand.png" alt="helloHand" width={38} height={38} className="ml-2"/>
         </div>
-        <div className="text-white pl-8 flex flex-row">You have studied <span className="font-bold pl-1 pr-1">{homeData.studyTime ? homeData.studyTime : 0}</span> hours this week.</div>
+        <div className="text-white pl-8 flex flex-row">You have studied <span className="font-bold pl-1 pr-1">{homeData.studyTime ? homeData.studyTime : 0}</span> this week.</div>
         <div className="text-white pl-8">Keep going!</div>
         <div className="text-white pl-8">I recommend you continue studying <span className="font-bold pl-1 pr-1">{homeData.recommendCourse}</span>.</div>
       </div>
