@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { User } from "@/lib/type";
-import { message } from 'antd';
 
 interface DetailPageProps {
   params: Record<string, string | undefined>;
@@ -26,13 +25,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
     }
   }, []);
 
-  const [messageApi, contextHolder] = message.useMessage();
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'remove success',
-    });
-  };
+
 
   const removeWord = async ()=>{
     // 发送数据到后端
@@ -56,7 +49,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
       const result = await response.json();
       console.log('result',result)
       if(result.code == 0){
-        success()
+        router.push("/dashboard/vocabulary");
       }else{
         console.error('后端返回:', result.message);
       }
@@ -67,7 +60,6 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
   }
   return (
     <div className="flex flex-col mt-12">
-      {contextHolder}
       <div className="flex flex-row w-2/3 justify-between">
         <h1 className="text-4xl font-bold">Vocabulary</h1>
         <Link
