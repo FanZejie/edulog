@@ -24,6 +24,8 @@ const SignInForm = () => {
           form.resetFields();
           // 登录后保存用户信息
           localStorage.setItem('user', JSON.stringify(data.data));
+          //同时也存到cookie
+          document.cookie = `user=${data.data.userName}; path=/; max-age=3600`
           router.push("/dashboard/home");
         }else{
           alert('用户名密码错误')
