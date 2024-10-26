@@ -1,6 +1,18 @@
+'use client'
+import { useEffect, useState } from 'react';
+import { User } from "@/lib/type";
 import Image from "next/image";
 import Link from "next/link";
 const Page = () => {
+  const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+    }
+  }, []);// 空数组表示只在组件挂载时运行
   return (
     <div className=" h-full w-full flex flex-row">
       <div className="w-1/2 flex flex-col pt-20 ">
@@ -39,7 +51,7 @@ const Page = () => {
       </div>
       <div className="w-1/2  flex flex-col pt-10 ">
         <div className="flex flex-col justify-center ml-12">
-          <div className="font-extrabold text-4xl">Hello Jane</div>
+          <div className="font-extrabold text-4xl">Hello {user?.userName}</div>
           <div className="font-extrabold text-4xl mt-2 mb-14">Let&apos;s Start</div>
         </div>
         <Image src="/courseHuman.png" alt="girl" width={306} height={329}/>
