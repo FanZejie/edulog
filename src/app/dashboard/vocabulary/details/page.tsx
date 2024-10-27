@@ -63,7 +63,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ params, searchParams }) => {
       <div className="flex flex-row w-2/3 justify-between">
         <h1 className="text-4xl font-bold">Vocabulary</h1>
         <Link
-          href={"/dashboard/course/"}
+          href={"/dashboard/vocabulary/"}
           className="flex flex-row items-center gap-2">
           <Image src="/back.png" alt="back" width={60} height={60} />
           <span className="font-medium text-xl text-gray-600">back</span>
